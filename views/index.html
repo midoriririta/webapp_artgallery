@@ -1,0 +1,382 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>My Gallery</title>
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/webuploader.css" rel="stylesheet" />
+    <link href="/stylesheets/main.css" rel="stylesheet">
+    <script type="text/javascript">
+        window.user = {};
+    </script>
+</head>
+<body>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-white">About</h4>
+                        <p class="text-muted">
+                            Treasures can be items that are carried around, can be a yellowed photo in the album, and the most beautiful collection is not recorded.
+                        </p>
+                        <p class="text-muted">
+                            This album contains my most precious memories.
+                        </p>
+                    </div>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <h4 class="text-white">Contact</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="http://www.twitter.com/xxx" class="text-white">Follow on Twitter</a></li>
+                            <li><a href="http://www.facebook.com/xxx" class="text-white">Like on Facebook</a></li>
+                            <li><a href="mailto:xxx@github.com" class="text-white">Email me</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="/" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <strong>My Gallery</strong>
+                </a>
+                <div>
+                    <span id="login-status"></span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <div class="album py-5 bg-light single-page cur" data-page="#gallery">
+            <div class="container mb-5 d-flex justify-content-md-center">
+                <div class="col-md-6 d-flex justify-content-md-center">
+                    <div class="input-group">
+                        <input id="search-gallery-keywords" class="form-control" type="text" placeholder="Gallery Name">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="btn-search-gallerys">Search</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-create-gallery ml-2">Create gallery</button>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row" id="gallerys-list"></div>
+            </div>
+        </div>
+        <div class="album py-5 bg-light single-page" data-page="#detail">
+            <div class="container mb-5 d-flex justify-content-md-center">
+                <div class="col-md-6 d-flex justify-content-md-center">
+                    <div class="input-group">
+                        <input id="search-photo-keywords" class="form-control" type="text" placeholder="Photo Name">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="btn-search-photos">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <h5 class="d-flex justify-content-between">
+                    <span id="gallery-name"></span>
+                    <span class="pull-right" id="gallery-buttons">
+                        <button class="btn btn-sm btn-primary" data-galleryId="">Upload Pictures</button>
+                        <button class="btn btn-sm btn-primary" data-galleryId="">Edit Name</button>
+                        <button class="btn btn-sm btn-danger" data-galleryId="">Delete</button>
+                    </span>
+                </h5>
+                <p class="text-muted" id="gallery-counter">0 pictures</p>
+                <hr />
+                <div class="row" id="photo-list">Loading photos...</div>
+            </div>
+        </div>
+        <div class="album py-5 bg-light single-page" data-page="#detail-photo">
+            <div class="container">
+                <h5 class="d-flex justify-content-between">Photo View</h5>
+                <hr />
+                <div class="row mb-4" id="photo-detail">
+                    <div class="col-md-12">
+                        <div class="card box-shadow">
+                            <img class="photo-top" id="photo-detail-image">
+                            <div class="card-body">
+                                <p class="card-text" id="photo-detail-filename"></p>
+                                <div class="card-text">
+                                    <label>Tags:</label>
+                                    <label id="photo-tags">Loading...</label>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group" id="photo-detail-buttons">
+                                        <button class="btn btn-sm btn-outline-primary rename" data-toggle="modal" data-target="#rename-photo-dialog">Rename</button>
+                                        <button class="btn btn-sm btn-outline-danger delete" data-toggle="modal" data-target="#delete-photo-dialog">Delete</button>
+                                    </div>
+                                    <small class="text-muted" id="photo-detail-time"></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="album py-5 bg-light single-page" data-page="#search-gallery">
+            <div class="container mb-5 d-flex justify-content-md-center">
+                <div class="col-md-6 d-flex justify-content-md-center">
+                    <div class="input-group">
+                        <input id="search-page-gallery-keywords" class="form-control" type="text" placeholder="Gallery Name">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="search-page-gallery-searchbtn">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <p class="d-flex justify-content-between">
+                    <span id="search-gallery-tip">Search Gallerys With Name ""</span>
+                </p>
+                <p class="text-muted" id="search-gallery-counter">0 gallerys</p>
+                <hr />
+                <div class="row" id="search-gallery-list">Loading search results...</div>
+            </div>
+        </div>
+        <div class="album py-5 bg-light single-page" data-page="#search-photo">
+            <div class="container mb-5 d-flex justify-content-md-center">
+                <div class="col-md-6 d-flex justify-content-md-center">
+                    <div class="input-group">
+                        <input id="search-page-photo-keywords" class="form-control" type="text" placeholder="Photo Name">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="search-page-photo-searchbtn">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <p class="d-flex justify-content-between">
+                    <span id="search-photo-tip">Search Photos With Name ""</span>
+                </p>
+                <p class="text-muted" id="search-photo-counter">0 gallerys</p>
+                <hr />
+                <div class="row" id="search-photo-list">Loading search results...</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+            <p>
+                If you want others to be happy, you must be happy first. <br />
+                To spread the sun into the hearts of others, you must have sunshine in your heart.
+            </p>
+            <p style="text-indent:2em">-Roman Roland</p>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="login-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Admin Login
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="username">UserName</label>
+                            <input type="text" class="form-control" id="userName" name="userName" placeholder="username" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="password" required="required">
+                        </div>
+                        <label class="text-danger" id="error-container"></label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tip-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tip</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <p id="tip-content"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="delete-gallery-form" class="form-horizontal" role="form">
+                        <p>Are you sure you want to delete this gallery? All images under this gallery will be deleted!</p>
+                        <p class="text-danger" id="delete-status"></p>
+                        <button type="submit" class="btn btn-danger btn-delete-gallery">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="create-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-gallery-form" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="username">Gallery Name</label>
+                            <input type="text" class="form-control" id="galleryName" name="galleryName" placeholder="Gallery Name" required="required">
+                        </div>
+                        <label class="text-danger" id="error-container"></label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="upload-dialog" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload Pictures To Gallery Babies</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="min-height:300px">
+                    <div class="form-horizontal" role="form">
+                        <div id="fileList"></div>
+                        <div>
+                            <div id="btn-select-pictures">Select Pictures</div>
+                            <button type="button" id="start-upload" class="btn btn-primary" disabled="disabled">Upload</button>
+                            <p class="text-muted">
+                                Tips: Multiple pictures can be selected, 10 files per time.
+                                <span class="text-muted" id="uploaded-message"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="loading-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="text-center" style="font-weight:normal">Loading...</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rename-photo-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Rename photo
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="rename-photo-form" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="username">Old Name</label>
+                            <input type="text" id="old-name" class="form-control" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">New Name</label>
+                            <input type="text" class="form-control" id="new-name" placeholder="New Name" required="required">
+                        </div>
+                        <label class="text-danger error-container"></label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Rename</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-photo-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="delete-photo-form" class="form-horizontal" role="form">
+                        <p>Are you sure delete this photo?</p>
+                        <p class="text-danger delete-status"></p>
+                        <button type="submit" class="btn btn-danger btn-delete-photo">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rename-gallery-dialog" tabindex="-1" role="dialog" data-backdrop="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Rename Gallery
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="rename-gallery-form" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="username">Old Name</label>
+                            <input type="text" class="form-control old-name" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">New Name</label>
+                            <input type="text" class="form-control new-name" placeholder="New Name" required="required">
+                        </div>
+                        <label class="text-danger error-container"></label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Rename</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/webuploader.html5only.min.js"></script>
+    <script src="/javascripts/imagesloaded.pkgd.min.js"></script>
+    <script src="/javascripts/masonry.pkgd.min.js"></script>
+    <script src="/javascripts/index.js"></script>
+</body>
+</html>

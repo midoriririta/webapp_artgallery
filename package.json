@@ -1,0 +1,38 @@
+{
+  "name": "my-gallery",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app",
+    "test": "jest",
+    "pretest": "npm run lint",
+    "lint": "eslint --ignore-pattern 'public/*' --fix entity/*.js routes/*.js app.js util.js"
+  },
+  "description": "MyGallery",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.14.0",
+    "express-session": "^1.15.6",
+    "jest": "^24.5.0",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "multer": "^1.2.0",
+    "serve-favicon": "^2.3.0",
+    "supertest": "^4.0.2",
+    "unirest": "^0.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
